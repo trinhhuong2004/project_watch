@@ -306,6 +306,7 @@ if (isset($_GET['act'])) {
                 $statistical_sale = statistical_sale($start_date, $end_date, $choose_time);
 
             }
+            $statistical = statisticalDate_ago();
             include "thongke/thongkedh.php";
             break;
           
