@@ -1,13 +1,130 @@
-<!-- Breadcumb area Start -->
+<html>
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+    .hienthibinhluan {
+        max-height: 420px;
+        /* Điều chỉnh chiều cao của vùng hiển thị */
+        overflow-y: auto;
+        /* Hiển thị thanh cuộn khi nội dung vượt quá chiều cao */
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 10px;
+        position: relative;
+    }
+
+    .load-more {
+        text-align: center;
+        padding: 10px;
+        cursor: pointer;
+        background-color: #f1f1f1;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+
+    .hienthibinhluan .mot-binhluan span {
+        display: inline-block;
+        margin-bottom: 5px;
+        /* Thêm margin để tạo khoảng cách giữa các phần tử */
+    }
+
+    .col-lg-6 {
+        width: 50%;
+        box-sizing: border-box;
+        /* To include padding and border in the width */
+    }
+
+    .vietbinhluan,
+    .hienthibinhluan {
+        padding: 10px;
+        width: 50%;
+        /* Add padding for better spacing */
+    }
+
+    .mot-binhluan {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    /*  */
+    form {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f1f1f1;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+
+    textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 12px;
+        box-sizing: border-box;
+    }
+
+    select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 12px;
+        box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    input[type="number"] {
+        width: 20px;
+
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .add_cart {
+        padding: 0px;
+        width: 80px;
+        background-color: #E5E5E5;
+    }
+
+
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    /* Add more styles as needed */
+
+
+    /* Add more styles as needed */
+
+    /* Add more styles as needed */
+    </style>
+</head>
+
+</html>
 <div class="breadcrumb-area">
     <div class="container">
         <div class="row">
             <div class="col-12 text-center">
                 <h1 class="page-title">Chi tiết sản phẩm</h1>
                 <ul class="breadcrumb justify-content-center">
-                    <li><a href="">Home</a></li>
-                    <li><a href="">Shop</a></li>
-                    <li class="current"><a href="">Product Detalis Tab Style One</a></li>
+                    <li><a href="">Trang chủ</a></li>
+                    <li><a href="">Cửa hàng</a></li>
+                    <li class="current"><a href="">Chi tiết sản phẩm</a></li>
                 </ul>
             </div>
         </div>
@@ -28,24 +145,22 @@
                         <div class="tab-content product-details-thumb-large" id="myTabContent-3">
                             <div class="tab-pane fade show active" id="product-large-one">
                                 <div class="product-details-img ">
-                                    <?php
-                                    $ctsp = all_ct_sanpham();
-                                    foreach ($ctsp as $row) :
-                                        extract($row);
-                                    ?>
-                                        <a class="popup-btn" href="public/images/<?= $hinh_anh ?>">
-                                        <?php endforeach; ?>
-                                        <img src="public/images/<?= $hinh_anh ?>" alt="product">
-                                        </a>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="product-large-two">
-                                <div class="product-details-img ">
-                                    <a class="popup-btn" href="assets/img/products/4-900x900.jpg">
-                                        <img src="assets/img/products/4-900x900.jpg" alt="product">
+                                    <a class="popup-btn" href="public/images/<?= $load_one_sp['hinh_anh'] ?>">
+
+                                        <img src="public/images/<?= $load_one_sp['hinh_anh']  ?>" alt="product">
                                     </a>
                                 </div>
                             </div>
+
+
+                            <div class="tab-pane fade" id="product-large-two">
+                                <div class="product-details-img ">
+                                    <a class="popup-btn" href="#">
+                                        <img src="#" alt="product">
+                                    </a>
+                                </div>
+                            </div>
+
                             <div class="tab-pane fade" id="product-large-three">
                                 <div class="product-details-img ">
                                     <a class="popup-btn" href="assets/img/products/5-900x900.jpg">
@@ -67,22 +182,20 @@
                                     </a>
                                 </div>
                             </div>
+
                         </div>
                         <!-- Tab Content End -->
 
                         <!-- Product Thumbnail Carousel Start -->
                         <div class="product-details-thumbnail">
-                            <div class="thumb-menu product-details-thumb-menu nav-vertical-center" id="thumbmenu-horizontal">
+                            <div class="thumb-menu product-details-thumb-menu nav-vertical-center"
+                                id="thumbmenu-horizontal">
                                 <div class="thumb-menu-item">
                                     <a href="#product-large-one" data-bs-toggle="tab" class="nav-link active">
                                         <img src="assets/img/products/3-450x450.jpg" alt="product thumb">
                                     </a>
                                 </div>
-                                <div class="thumb-menu-item">
-                                    <a href="#product-large-two" data-bs-toggle="tab" class="nav-link">
-                                        <img src="assets/img/products/4-450x450.jpg" alt="product thumb">
-                                    </a>
-                                </div>
+
                                 <div class="thumb-menu-item">
                                     <a href="#product-large-three" data-bs-toggle="tab" class="nav-link">
                                         <img src="assets/img/products/5-450x450.jpg" alt="product thumb">
@@ -106,7 +219,7 @@
                         <!-- Single Product Content Start -->
                         <div class="product-details-content">
                             <div class="product-details-top">
-                                <h2 class="product-details-name"><?= $name ?></h2>
+                                <h2 class="product-details-name"><?= $load_one_sp['name']  ?></h2>
                                 <div class="ratings-wrap">
                                     <div class="ratings">
                                         <i class="fa fa-star rated"></i>
@@ -116,63 +229,22 @@
                                         <i class="fa fa-star"></i>
                                     </div>
                                     <span>
-                                        <a class="review-btn" href="#singleProductTab">1 Reviews</a>
-                                        <a class="review-btn" href="#singleProductTab">write a review</a>
+                                        <a class="review-btn" href="#singleProductTab">Đánh giá</a>
                                     </span>
                                 </div>
-                                <ul class="product-details-list list-unstyled">
-                                    <li>Brand: <a href="#">Apple</a></li>
-                                    <table border="1" style="border-collapse: collapse;">
-                                        <tr>
-
-                                            <th style="border: 1px solid white;padding:10px;">màu sắc</th>
-                                            <th style="border: 1px solid white;padding:10px;">chất liệu</th>
-                                            <th style="border: 1px solid white;padding:10px;">trọng lượng</th>
-                                            <th style="border: 1px solid white;padding:10px;">kích thước</th>
-                                            <th style="border: 1px solid white;padding:10px;">phụ kiện</th>
-                                            <th style="border: 1px solid white;padding:10px;">khuyến mãi</th>
-                                            <th style="border: 1px solid white;padding:10px;">tình trạng</th>
-                                            <th style="border: 1px solid white;padding:10px;">bảo hành</th>
-                                        </tr>
-                                        <tr>
-                                            <?php
-                                            $ctsp = all_ct_sanpham();
-                                            foreach ($ctsp as $row) :
-                                                extract($row);
-                                            ?>
-                                                <td style="border: 1px solid white;padding:5px;"><?= $mau_sac ?></td>
-                                                <td style="border: 1px solid white;padding:5px;"><?= $chat_lieu ?></td>
-                                                <td style="border: 1px solid white;padding:5px;"><?= $trong_luong ?> gam</td>
-                                                <td style="border: 1px solid white;padding:5px;"><?= $kich_thuoc ?></td>
-                                                <td style="border: 1px solid white;padding:5px;"><?= $phu_kien ?></td>
-                                                <td style="border: 1px solid white;padding:5px;"><?= $khuyen_mai ?></td>
-                                                <td style="border: 1px solid white;padding:5px;"><?= $tinh_trang ?></td>
-                                                <td style="border: 1px solid white;padding:5px;"><?= $bao_hanh ?></td>
-                                            <?php endforeach; ?>
-                                        </tr>
-                                    </table>
-
-
-                                    <div class="product-content text-center">
-                                        <?php
-                                        $ctsp = all_ct_sanpham();
-                                        foreach ($ctsp as $row) :
-                                            extract($row);
-                                        ?>
-                                            <span>Cartier</span>
-                                            <h4><a href=""><?= $name ?></a></h4>
-                                            <div class="product-price-wrapper">
-                                                <span class="money">$<?= $gia_giam ?></span>
-                                                <span class="product-price-old">
-                                                    <span class="money">$<?= $gia ?></span>
-                                                </span>
-                                            </div>
-                                            <div class="product-price-wrapper"><?= $mo_ta ?>
-                                            </div>
-                                        <?php endforeach; ?>
+                                <div class="ratings-wrap">
+                                    <div class="ratings">
+                                        <p>Giá sản phẩm: <?= $load_one_sp['gia']  ?></p>
                                     </div>
 
-                                </ul>
+                                </div>
+                                <div class="ratings-wrap">
+                                    <div class="ratings">
+                                        <p>Mô tả: <?= $load_one_sp['mo_ta']  ?></p>
+                                    </div>
+
+                                </div>
+
 
                             </div>
 
@@ -181,19 +253,23 @@
                                     <div class="product-details-action-top d-flex align-items-center mb--20">
                                         <div class="quantity">
                                             <span>SL: </span>
-                                            <input type="number" class="quantity-input" name="qty" id="pro_qty" value="1" min="1">
+                                            <input type="number" name="qty" id="pro_qty"
+                                                value="<?= $load_one_sp['so_luong']  ?>" min="1">
                                         </div>
-                                       <a href="index.php?redirect=giohang"> <button type="button" class="btn btn-medium btn-style-2 add-to-cart">
-                                            Thêm vào giỏ hàng
-                                        </button></a>
+                                        <a href="index.php?redirect=giohang"> <button type="button"
+                                                class="btn btn-medium btn-style-2 add-to-cart">
+                                                Thêm vào giỏ hàng
+                                            </button></a>
                                     </div>
 
                                     <div class="social-share">
-                                        <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" class="facebook share-button">
+                                        <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer"
+                                            class="facebook share-button">
                                             <i class="fa fa-facebook"></i>
                                             <span>Like</span>
                                         </a>
-                                        <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" class="twitter share-button">
+                                        <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer"
+                                            class="twitter share-button">
                                             <i class="fa fa-twitter"></i>
                                             <span>Tweet</span>
                                         </a>
@@ -209,124 +285,209 @@
 
                     </div>
             </section>
-            <style>
-                .hienthibinhluan {
-                    max-height: 300px;
-                    /* Điều chỉnh chiều cao của vùng hiển thị */
-                    overflow-y: auto;
-                    /* Hiển thị thanh cuộn khi nội dung vượt quá chiều cao */
-                    border: 1px solid #ccc;
-                    border-radius: 8px;
-                    padding: 10px;
-                    position: relative;
-                }
 
+            <div class="breadcrumb-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <h1 class="page-title">Bình luận </h1>
 
-
-                .load-more {
-                    text-align: center;
-                    padding: 10px;
-                    cursor: pointer;
-                    background-color: #f1f1f1;
-                    border-radius: 5px;
-                    margin-top: 10px;
-                }
-              .hienthibinhluan  .mot-binhluan span {
-    display: inline-block;
-    margin-bottom: 5px; /* Thêm margin để tạo khoảng cách giữa các phần tử */
-}
-
-            </style>
-
-            <div class="binhluan">
-                <?php
-                // Kiểm tra xem người dùng đã đăng nhập hay chưa bằng cách kiểm tra có tồn tại id hay không
-                if (isset($_SESSION['id']) && !empty($_SESSION['id'])) {
-                ?>
-                    <div class="vietbinhluan">
-                        <form action="index.php?redirect=guibinhluan&id=<?= $_GET['id'] ?>" method="post">
-                            <input type="hidden" name="id_san_pham" value="<?= $id ?>"> <!-- Giá trị ID sản phẩm -->
-                            <input type="hidden" name="id_tai_khoan" value="<?= $_SESSION['id'] ?>"> <!-- Giá trị ID tài khoản -->
-                            <input type="text" name="ngay_binh_luan" value="<?php $ngay_binh_luan = date('Y-m-d');
-                                                                            echo $ngay_binh_luan ?>" hidden>
-                            <label for="noi_dung">Nội dung bình luận:</label><br>
-                            <textarea id="noi_dung" name="noi_dung_binh_luan" rows="4" cols="50" placeholder="Viết bình luận..."></textarea><br>
-                            <label for="danh_gia">Đánh giá:</label><br>
-                            <select id="danh_gia" name="danh_gia">
-                                <option value="5">5 sao</option>
-                                <option value="4">4 sao</option>
-                                <option value="3">3 sao</option>
-                                <option value="2">2 sao</option>
-                                <option value="1">1 sao</option>
-                            </select><br><br>
-                            
-                            <input type="submit" value="Gửi bình luận" name="guibinhluan">
-                        </form>
+                        </div>
                     </div>
+                </div>
+            </div>
+            <div class="row" style="display: flex;">
+                <div class="vietbinhluan">
+                    <?php
+                    // Kiểm tra xem người dùng đã đăng nhập hay chưa bằng cách kiểm tra có tồn tại id hay không
+                    if (isset($_SESSION['id']) && !empty($_SESSION['id'])) {
+                    ?>
+                    <form action="index.php?redirect=guibinhluan&id=<?= $_GET['id'] ?>" method="post">
+                        <input type="hidden" name="id_san_pham" value="<?= $id ?>"> <!-- Giá trị ID sản phẩm -->
+                        <input type="hidden" name="id_tai_khoan" value="<?= $_SESSION['id'] ?>">
+                        <!-- Giá trị ID tài khoản -->
+                        <input type="text" name="ngay_binh_luan" value="<?php $ngay_binh_luan = date('Y-m-d');
+                                                                            echo $ngay_binh_luan ?>" hidden>
+                        <label for="noi_dung">Nội dung bình luận:</label><br>
+                        <textarea id="noi_dung" name="noi_dung_binh_luan" rows="4" cols="50"
+                            placeholder="Viết bình luận..."></textarea><br>
+                        <label for="danh_gia">Đánh giá:</label><br>
+                        <select id="danh_gia" name="danh_gia">
+                            <option value="5">5 sao</option>
+                            <option value="4">4 sao</option>
+                            <option value="3">3 sao</option>
+                            <option value="2">2 sao</option>
+                            <option value="1">1 sao</option>
+                        </select><br><br>
+
+                        <input type="submit" value="Gửi bình luận" name="guibinhluan">
+                    </form>
+                </div>
                 <?php } else { ?>
-                    <a href="index.php?redirect=dangnhap">Vui lòng đăng nhập để bình luận</a>
-                    
+                <a href="index.php?redirect=dangnhap">Vui lòng đăng nhập để bình luận</a>
+
                 <?php } ?>
 
-                <div class="hienthibinhluan">
+                <div class="hienthibinhluan col-lg-6">
+                    <h4>Hiện thị bình luận</h4>
                     <?php
-                    if(isset($_GET['id'])){
-                        $binhluan = load_one_binhluan($_GET['id']);
-                    }
-                    
-                    foreach ($binhluan as $row) :
-                        extract($row);
-                       
-                    ?>
-                        <tr>
-                            <div class="mot-binhluan">
-                                <span>ID tài khoản:</span> <br>
-                                <span class="info" id="id_tai_khoan"> <?= $_SESSION['id'] ?> </span><br><br>
-                                <span>Ngày bình luận:</span><br>
-                                <span class="info" id="ngay_binh_luan"> <?= $ngay_binh_luan ?> </span><br><br>
-                                <span>Nội dung bình luận:</span><br>
-                                <span class="info" id="noi_dung_binh_luan"> <?= $noi_dung_binh_luan ?> </span><br><br>
-                                <span>Đánh giá (số sao):</span> <br>
-                                <span class="info" id="danh_gia"> <?= $danh_gia ?> </span><br><br>
-                            </div>
-                        <?php
-                    endforeach;
+                            if(isset($_GET['id'])){
+                                $binhluan = load_one_binhluan($_GET['id']);
+                               
+                            }
+                            foreach ($binhluan as $row) :
+                                extract($row);
+                            
+                        ?>
+                    <tr>
+
+                        <div class="mot-binhluan">
+                            <span>ID tài khoản:</span>
+                            <span class="info" id="id_tai_khoan"> <?= $_SESSION['id'] ?> </span><br>
+                            <span>Ngày bình luận:</span>
+                            <span class="info" id="ngay_binh_luan"> <?= $ngay_binh_luan ?> </span><br>
+                            <span>Nội dung bình luận:</span>
+                            <span class="info" id="noi_dung_binh_luan"> <?= $noi_dung_binh_luan ?> </span><br>
+                            <span>Đánh giá (số sao):</span>
+                            <span class="info" id="danh_gia"> <?= $danh_gia ?> </span> <br>
+                        </div>
+                    </tr>
+                    <?php
+                        endforeach;
                         ?>
 
-                        <div class="load-more" style="display: none;">Hiển thị thêm</div>
+                    <div class="load-more" style="display: none;">Hiển thị thêm</div>
                 </div>
             </div>
 
-            </div>
+        </div>
+        <div class="breadcrumb-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h1 class="page-title">Sản phẩm tương tự </h1>
 
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 text-center">
+
+                                <div class="tab-content product-tab__content" id="product-tabContent">
+
+                                    <div class="product-carousel js-product-carousel">
+                                        <?php
+                                        $i = 0;
+                                        $sanpham = all_sanpham_giam();
+
+                                        foreach ($sanpham as $row) :
+                                            extract($row);
+                                        ?>
+                                        <div class="product-carousel-group">
+                                            <div class="mirora-product">
+                                                <div class="product-img">
+                                                    <img src="public/images/<?= $hinh_anh ?>" alt="Product"
+                                                        class="primary-image" />
+                                                    <img src="public/images/<?= $hinh_anh ?>" alt="Product"
+                                                        class="secondary-image" />
+                                                    <div class="product-img-overlay">
+                                                        <span class="product-label discount">
+                                                            -20%
+                                                        </span>
+                                                        <a href="" data-bs-toggle="modal" data-bs-target="#productModal"
+                                                            class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Xem
+                                                            chi tiết</a>
+                                                    </div>
+                                                </div>
+                                                <div class="product-content text-center">
+                                                    <span>Cartier</span>
+                                                    <h4><a
+                                                            href="index.php?redirect=chitietsanpham&id=<?= $id ?>"><?= $name ?></a>
+                                                    </h4>
+                                                    <div class="product-price-wrapper">
+                                                        <span class="money">$<?= $gia_giam ?></span>
+                                                        <span class="product-price-old">
+                                                            <span class="money">$<?= $gia ?></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="mirora_product_action text-center position-absolute">
+                                                    <div class="product-rating">
+                                                        <span>
+                                                            <i class="fa fa-star theme-star"></i>
+                                                            <i class="fa fa-star theme-star"></i>
+                                                            <i class="fa fa-star theme-star"></i>
+                                                            <i class="fa fa-star theme-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                        </span>
+                                                    </div>
+                                                    <p>
+                                                        <?= $mo_ta ?>
+                                                    </p>
+                                                    <form action="index.php?redirect=giohang " method="post">
+                                                        <div class="product-action">
+                                                            <a class="same-action" href="" title="wishlist">
+                                                                <i class="fa fa-heart-o"></i>
+                                                            </a>
+                                                            <input class="add_cart cart-item action-cart" type="submit"
+                                                                name="addcart" value="Thêm Giỏ">
+                                                            <input type="hidden" name="hinhanh"
+                                                                value="<?= $hinh_anh ?>">
+                                                            <input type="hidden" name="tensp" value="<?= $name ?>">
+                                                            <input type="hidden" name="giagiam"
+                                                                value="<?= $gia_giam ?>">
+                                                            <input type="hidden" name="gia" value="<?= $gia ?>">
+                                                            <input type="hidden" name="soluong" min="1" max="10"
+                                                                value="1">
+                                                            <a class="same-action compare-mrg" data-bs-toggle="modal"
+                                                                data-bs-target="#productModal" href="compare.html">
+                                                                <i class="fa fa-sliders fa-rotate-90"></i>
+                                                            </a>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php
+                                            $i++;
+                                        endforeach;
+                                        ?>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+</div>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const hienthibinhluan = document.querySelector('.hienthibinhluan');
-        const allBinhluan = hienthibinhluan.querySelector('.all-binhluan');
-        const loadMore = hienthibinhluan.querySelector('.load-more');
+document.addEventListener('DOMContentLoaded', function() {
+    const hienthibinhluan = document.querySelector('.hienthibinhluan');
+    const allBinhluan = hienthibinhluan.querySelector('.all-binhluan');
+    const loadMore = hienthibinhluan.querySelector('.load-more');
 
-        const binhluanItems = [];
-        let currentIndex = 0;
-        const showMoreComments = () => {
-            const showCount = 3;
-            for (let i = currentIndex; i < currentIndex + showCount; i++) {
-                if (binhluanItems[i]) {
-                    binhluanItems[i].style.display = 'block';
-                }
+    const binhluanItems = [];
+    let currentIndex = 0;
+    const showMoreComments = () => {
+        const showCount = 3;
+        for (let i = currentIndex; i < currentIndex + showCount; i++) {
+            if (binhluanItems[i]) {
+                binhluanItems[i].style.display = 'block';
             }
-            currentIndex += showCount;
-            if (currentIndex >= binhluanItems.length) {
-                loadMore.style.display = 'none';
-            }
-        };
-        showMoreComments();
-        hienthibinhluan.addEventListener('scroll', function() {
-            if (hienthibinhluan.scrollTop === 0) {
-                showMoreComments();
-            }
-        });
+        }
+        currentIndex += showCount;
+        if (currentIndex >= binhluanItems.length) {
+            loadMore.style.display = 'none';
+        }
+    };
+    showMoreComments();
+    hienthibinhluan.addEventListener('scroll', function() {
+        if (hienthibinhluan.scrollTop === 0) {
+            showMoreComments();
+        }
     });
+});
 </script>

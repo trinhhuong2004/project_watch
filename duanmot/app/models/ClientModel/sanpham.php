@@ -21,13 +21,6 @@
       return $result;
    }
    
-   // function sp_theo_dm(){
-   //    if(isset($_GET['iddm']));
-   //    $iddm=$_GET['iddm'];
-   //    $sql="SELECT * FROM san_pham where iddm='$iddm'";
-   //    $result=pdo_query($sql);
-   //    return $result;
-   // }
    function sp_theo_dm($iddm){
         $sql="SELECT * from san_pham WHERE iddm = '$iddm'";
         $result=pdo_query($sql);
@@ -36,8 +29,15 @@
 
 
    function all_ct_sanpham(){
-      $sql="SELECT * FROM chi_tiet_san_pham";
+      $sql="SELECT * FROM san_pham";
       $result=pdo_query($sql);
+      return $result;
+   }
+   
+    // Load sản phẩm chi tiết 
+    function load_one_spct($id){
+      $sql="SELECT * FROM san_pham WHERE id = $id";
+      $result = pdo_query_one($sql);
       return $result;
    }
 ?>

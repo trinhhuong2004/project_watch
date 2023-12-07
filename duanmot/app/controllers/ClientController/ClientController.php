@@ -4,9 +4,6 @@ if (!isset($_SESSION['mycart'])) $_SESSION['mycart'] = [];
 if (isset($_GET['redirect'])) {
     $redirect = $_GET['redirect'];
     switch ($redirect) {
-
-            // Đăng ký đăng nhập
-
         case 'dangky':
             if (isset($_POST['dangky'])) {
                 $name = $_POST['name'];
@@ -46,6 +43,10 @@ if (isset($_GET['redirect'])) {
                 break;
 
         case 'guibinhluan':
+            if(isset($_GET['id'])){
+                $id = $_GET['id'];
+                $load_one_sp = load_one_spct($id);
+            }
             include "app/views/Client/sanpham/chitietsanpham.php";
             if (isset($_POST['guibinhluan'])) {
                 // binhluansanpham($id_tai_khoan,$id_san_pham,$noi_dung_binh_luan,$ngay_binh_luan,$danh_gia)
@@ -56,7 +57,9 @@ if (isset($_GET['redirect'])) {
                 $ngay_binh_luan = $_POST['ngay_binh_luan'];
                 $danh_gia = $_POST['danh_gia'];
                 binhluansanpham($id_tai_khoan, $id_san_pham, $noi_dung_binh_luan, $ngay_binh_luan, $danh_gia);
+
             }
+    
             break;
         // Thêm sản phẩm giỏ hàng
         case 'themgiohang':
@@ -150,6 +153,11 @@ if (isset($_GET['redirect'])) {
 
 
         case 'chitietsanpham':
+            if(isset($_GET['id'])){
+                $id = $_GET['id'];
+                $load_one_sp = load_one_spct($id);
+            }
+            $load_all_sp = all_ct_sanpham();
             include "app/views/Client/sanpham/chitietsanpham.php";
             break;
 
