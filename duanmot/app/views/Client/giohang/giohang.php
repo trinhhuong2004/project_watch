@@ -1,43 +1,9 @@
 <?php
-//  session_start();
-
-if (!isset($_SESSION['giohang'])) $_SESSION['giohang'] = [];
-// xoa hết sp trong gio hang
-if (isset($_GET['delcart']) && ($_GET['delcart'] == 1)) unset($_SESSION['giohang']);
-
-
-if (isset($_POST['addcart']) && ($_POST['addcart'])) {
-    $hinhanh = $_POST['hinhanh'];
-    $tensp = $_POST['tensp'];
-    $giagiam = $_POST['giagiam'];
-    $gia = $_POST['gia'];
-    $soluong = $_POST['soluong'];
-
-    // kiểm tra sp có trong gio hàng k
-
-    $fl = 0; // kiem tra sp trung
-    for ($i = 0; $i < sizeof($_SESSION['giohang']); $i++) {
-
-        if ($_SESSION['giohang'][$i][1] == $tensp) {
-            $fl = 1;
-            $soluongnew = $soluong + $_SESSION['giohang'][$i][4];
-            $_SESSION['giohang'][$i][4] = $soluongnew;
-            break;
-        }
-    }
-
-    // k trung thi them moi
-    if ($fl == 0) {
-        $sp = [$hinhanh, $tensp, $giagiam, $gia, $soluong];
-        $_SESSION['giohang'][] = $sp;
-    }
-}
-
 // Delete
-
-if (isset($_GET['del']) && ($_GET['del'] >= 0)) {
-    array_splice($_SESSION['giohang'], $_GET['del'], 1);
-}
+// session_start();
+// if (isset($_GET['del']) && ($_GET['del'] >= 0)) {
+//     array_splice($_SESSION['giohang'], $_GET['del'], 1);
+// }
 
 
 
@@ -70,14 +36,14 @@ if (isset($_GET['del']) && ($_GET['del'] >= 0)) {
                                 <table class="table mb--30">
                                     <thead>
                                         <tr>
-                                            <th>Xóa</th>
+                                            
                                             <th>Ảnh</th>
                                             <th>Sản phẩm</th>
-                                            <th>Giá giảm</th>
                                             <th>Giá gốc</th>
+                                            <th>Giá giảm</th>
                                             <th>Số lượng</th>
                                             <th>Thành Tiền</th>
-                                            <th></th>
+                                            <th>Xóa</th>
                                         </tr>
 
 
@@ -86,8 +52,27 @@ if (isset($_GET['del']) && ($_GET['del'] >= 0)) {
                                     <tbody>
 
                                         <?php
-                                        echo show_giohang();
+                                            $sum = 0;
+                                            $i = 0;
+                                            // var_dump($_SESSION['mycart']);
+                                            // unset($_SESSION['mycart']);
+                                            foreach($_SESSION['mycart'] as $cart) :
+                                                $img = 'assets/img/products/' . $cart[2];
+                                                $thanhtien = $cart[3] * $cart[5];
+                                                $sum += $thanhtien;
+                                                $link="?redirect=del_cart&idcart=$i";
                                         ?>
+                                    <tr>
+                                        <td><img src="assets/img/products/<?=$cart[1]?>" alt=""></td>
+                                        <td><?=$cart[2]?></td>
+                                        <td>$ <?=$cart[4]?></td>
+                                        <td>$ <?=$cart[3]?></td>
+                                        <td><?=$cart[5]?></td>
+                                        <td>$ <?=$thanhtien?></td>
+                                        <td><a class="delete" href="<?=$link?>"><i class="fa fa-times"> xóa</i></a></td>
+                                    </tr>
+                                        
+                                        <?php $i++; endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -115,7 +100,7 @@ if (isset($_GET['del']) && ($_GET['del'] >= 0)) {
     </div>
     <!-- Checkout Area End -->
 </div>
-    <script>
+    <!-- <script>
     const checkboxes = document.querySelectorAll('input[type="radio"]');
     checkboxes.forEach(function(checkbox) {
         checkbox.addEventListener('change', function() {
@@ -128,4 +113,4 @@ if (isset($_GET['del']) && ($_GET['del'] >= 0)) {
             }
         });
     });
-</script>
+</script> -->

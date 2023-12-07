@@ -105,17 +105,17 @@
                                                         <p>
                                                             <?= $mo_ta ?>
                                                         </p>
-                                                        <form action="index.php?redirect=giohang " method="post">
+                                                        <form action="index.php?redirect=themgiohang" method="post">
                                                             <div class="product-action">
                                                                 <a class="same-action" href="" title="wishlist">
                                                                     <i class="fa fa-heart-o"></i>
                                                                 </a>
-                                                                <input class="add_cart cart-item action-cart" type="submit" name="addcart" value="Thêm giỏ ">
+                                                                <input class="add_cart cart-item action-cart" type="submit" name="addtocart" value="Thêm giỏ">
+                                                                <input type="hidden" name="masp" value="<?= $id ?>">
                                                                 <input type="hidden" name="hinhanh" value="<?= $hinh_anh ?>">
                                                                 <input type="hidden" name="tensp" value="<?= $name ?>">
                                                                 <input type="hidden" name="giagiam" value="<?= $gia_giam ?>">
                                                                 <input type="hidden" name="gia" value="<?= $gia ?>">
-
                                                                 <input type="number" name="soluong" min="1" max="10" value="1">
 
                                                                 <a class="same-action compare-mrg" data-bs-toggle="modal" data-bs-target="#productModal" href="compare.html">

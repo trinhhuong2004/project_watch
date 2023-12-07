@@ -14,80 +14,43 @@ function tong_donhang(){
     return $tong;
 }
 
-function thongtindonhang(){
-    
-}
+// function tao_giohang($hinh_anh,$ten_sp,$dongia,$soluong,$thanhtien,$idbill){
+//     $conn = connect();
+//     $sql = "INSERT INTO `cart`(`hinh_anh`, `ten_sp`, `dongia`, `soluong`, `thanhtien`, `idbill`) VALUES ('$hinh_anh','$ten_sp','$dongia','$soluong','$thanhtien','$idbill')";
+//     $conn ->exec($sql);
+//     $conn = null;
+// }
 
-function tao_giohang($hinh_anh,$ten_sp,$dongia,$soluong,$thanhtien,$idbill){
-    $conn = connect();
-    $sql = "INSERT INTO `cart`(`hinh_anh`, `ten_sp`, `dongia`, `soluong`, `thanhtien`, `idbill`) VALUES ('$hinh_anh','$ten_sp','$dongia','$soluong','$thanhtien','$idbill')";
-    $conn ->exec($sql);
-    $conn = null;
-}
+//     function tao_donhang($name,$dia_chi,$tell,$email,$detail,$total,$pttt){
+//         $conn = connect();
+//         $sql = "INSERT INTO `bill`(`name`, `dia_chi`, `tell`, `email`, `detail`, `total`, `pttt`) VALUES ('$name','$dia_chi','$tell','$email','$detail','$total','$pttt')";
+//         $conn ->exec($sql);
+//         $last_id = $conn->lastInsertId();
+//         $conn = null;
+//         return $last_id;
+//     }
 
-    function tao_donhang($name,$dia_chi,$tell,$email,$detail,$total,$pttt){
-        $conn = connect();
-        $sql = "INSERT INTO `bill`(`name`, `dia_chi`, `tell`, `email`, `detail`, `total`, `pttt`) VALUES ('$name','$dia_chi','$tell','$email','$detail','$total','$pttt')";
-        $conn ->exec($sql);
-        $last_id = $conn->lastInsertId();
-        $conn = null;
-        return $last_id;
+    function tao_id_order($id_user, $ngay_dat, $tong_don, $name, $email, $phone, $dia_chi, $pttt) {
+        $sql = "INSERT INTO don_hang (id_nguoi_dung, ngay_dat, tong_dh, ho_ten, email, sdt, dia_chi_giao_hang, pttt)
+        VALUES('".$id_user."', '".$ngay_dat."', '".$tong_don."', '".$name."', '".$email."', '".$phone."', '".$dia_chi."', '".$pttt."')";
+        return pdo_execute_lastInsertId($sql);
     }
 
-    
+    function them_order_detail($new_id_order, $id_san_pham, $ten_san_pham, $hinh_anh, $so_luong, $gia_ban) {
+        $sql = "INSERT INTO chi_tiet_don_hang (id_don_dat_hang, id_san_pham, ten_sp, hinh_anh, so_luong, gia_ban)
+        VALUES(?, ?, ?, ?, ?, ?)";
+        pdo_execute($sql, $new_id_order, $id_san_pham, $ten_san_pham, $hinh_anh, $so_luong, $gia_ban);
+    }
 
-
-    function show_giohang(){
-        $ttgh="";
-        if(isset($_SESSION['giohang'])&&(is_array($_SESSION['giohang']))){
-            if(sizeof($_SESSION['giohang'])>0) {
-                # code...
-            
-            $tong =0;
-            $i=0;
-            for ($i=0; $i < sizeof($_SESSION['giohang']) ; $i++) { 
-    
-                $tt=$_SESSION['giohang'][$i][2] * $_SESSION['giohang'][$i][4];
-                $tong += $tt;
-                $link="app/views/Client/giohang/giohang.php?del=".$i;
-                $ttgh.=
-                '<tr>
-    
-                <td><a class="delete" href="'.$link.'"><i class="fa fa-times"> xóa</i></a></td>
-                <td>
-                    <a href="product-details.html">
-                        <img src="assets/img/products/'.$_SESSION['giohang'][$i][0].'" alt="product">
-                    </a>
-                </td>
-                <td class="wide-column">
-                    <h3><a href="product-details.html">'.$_SESSION['giohang'][$i][1].'</a></h3>
-                </td>
-                <td class="cart-product-price"><strong>'.$_SESSION['giohang'][$i][2].'</strong></td>
-                <td class="cart-product-price"><strong>'.$_SESSION['giohang'][$i][3].'</strong></td>
-                <td>
-                    
-                    '.$_SESSION['giohang'][$i][4].'
-                        
-                    
-                </td>
-                <td>
-                '.$tt.' $
-                </td>
-    
-            </tr>';
-            $i++;
-            
-            }
-            $ttgh.= '
-             <tr >
-             <th colspan="1">Tổng tiền</th>
-             <th colspan="5"></th>
-                <td> '.$tong.' $ </td>
-          
-            </tr>';
-             }
-        }
-        return $ttgh;
+    function get_show_bill_info($order_id){
+        $sql="SELECT * FROM don_hang WHERE id = $order_id";
+        $show = pdo_query_one($sql);
+        return $show;
+    }
+    function get_show_bill_detail($order_id){
+        $sql="SELECT * FROM chi_tiet_don_hang WHERE id_don_dat_hang = $order_id";
+        $show = pdo_query($sql);
+        return $show;
     }
 
     function donhang(){

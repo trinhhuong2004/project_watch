@@ -79,4 +79,20 @@ function select_all_table_fetch_one() {
         return $result;
     }
 }
+
+function pdo_execute_lastInsertId($sql){
+    $sql_args = array_slice(func_get_args(), 1);
+    try{
+        $connect = connect();
+        $stmt = $connect->prepare($sql);
+        $stmt->execute($sql_args);
+        return $connect->lastInsertId();
+    }
+    catch(PDOException $e){
+        throw $e;
+    }
+    finally{
+        unset($connect);
+    }
+}
 ?>
