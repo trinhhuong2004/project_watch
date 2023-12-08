@@ -1,45 +1,42 @@
 <?php
-    $editctdh=load_onectdh();
-    extract($editctdh);
+    $editdonhang=select_onedh();
+    extract($editdonhang);
 ?>
 <div class="card card-primary">
     <div class="card-header">
-        <h3 class="card-title">Sửa chi tiết đơn hàng</h3>
+        <h3 class="card-title">Sửa đơn hàng</h3>
     </div>
     <!-- /.card-header -->
     <!-- form start -->
-    <form action="" method="post" >
+    <form action="" method="post">
         <div class="card-body">
+            
             <div class="form-group">
-                <label for="exampleInputPassword1">ID đơn đặt hàng</label>
-                <input type="text" class="form-control" required name="id_don_dat_hang" value="<?=$id_don_dat_hang?>" id="exampleInputPassword1" placeholder="ID người dùng">
+                <label for="exampleInputPassword1">ID người dùng</label>
+                <input type="text" class="form-control" required name="id_nguoi_dung" value="<?=$id_nguoi_dung?>" id="exampleInputPassword1" placeholder="ID người dùng">
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">ID sản phẩm</label>
-                <input type="text" class="form-control" required name="id_san_pham" value="<?=$id_san_pham?>" id="exampleInputPassword1" placeholder="ID sản phẩm">
+                <label for="exampleInputPassword1">Ngày đặt hàng</label>
+                <input type="date" class="form-control" required name="ngay_dat" value="<?=$ngay_dat?>" id="exampleInputPassword1">
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">Số lượng</label>
-                <input type="number" class="form-control" required name="so_luong" value="<?=$so_luong?>" id="exampleInputPassword1" placeholder="Địa chỉ giao hàng">
+                <label for="exampleInputPassword1">Địa chỉ giao hàng</label>
+                <input type="text" class="form-control" required name="dia_chi_giao_hang" value="<?=$dia_chi_giao_hang?>" id="exampleInputPassword1" placeholder="Địa chỉ giao hàng">
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">Size sản phẩm</label>
-                <select name="size_san_pham" id="">
-                    <option value="<?=$size_san_pham?>">40</option>
-                    <option value="<?=$size_san_pham?>">42</option>
-                    <option value="<?=$size_san_pham?>">38</option>
+                <label for="exampleInputPassword1">Trạng thái</label>
+                <select name="trang_thai" id="">
+                    <option value="<?=$trang_thai?>">Chờ xác nhận</option>
+                    <option value="<?=$trang_thai?>">Đã phê duyệt</option>
+                    <option value="<?=$trang_thai?>">Chờ giao hàng</option>
                 </select>
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Giá bán</label>
-                <input type="text" class="form-control" required name="gia_ban" value="<?=$gia_ban?>" id="exampleInputPassword1" placeholder="Địa chỉ giao hàng">
             </div>
             
         </div>
         <!-- /.card-body -->
 
         <div class="card-footer">
-            <button type="submit" name="capnhat" class="btn btn-primary">Cập nhật</button>
+            <button type="submit" name="capnhat" class="btn btn-primary">Cập nhật đơn hàng</button>
         </div>
     </form>
 </div>

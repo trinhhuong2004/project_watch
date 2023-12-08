@@ -26,9 +26,10 @@
             <div class="form-group">
                 <label for="exampleInputPassword1">Trạng thái</label>
                 <select name="trang_thai" id="">
-                    <option value="<?=$trang_thai?>">Chờ xác nhận</option>
-                    <option value="<?=$trang_thai?>">Đã phê duyệt</option>
-                    <option value="<?=$trang_thai?>">Chờ giao hàng</option>
+                    <option value="1">Chờ xác nhận</option>
+                    <option value="2">Đã phê duyệt</option>
+                    <option value="3">Đang giao hàng</option>
+                    <option value="4">Đã giao hàng</option>
                 </select>
             </div>
             
