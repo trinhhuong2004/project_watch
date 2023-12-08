@@ -154,6 +154,7 @@
 
 
                             <div class="tab-pane fade" id="product-large-two">
+                                <?php var_dump($load_all_sp)?>
                                 <div class="product-details-img ">
                                     <a class="popup-btn" href="#">
                                         <img src="#" alt="product">
@@ -340,10 +341,10 @@
                             
                         ?>
                     <tr>
-
                         <div class="mot-binhluan">
-                            <span>ID tài khoản:</span>
-                            <span class="info" id="id_tai_khoan"> <?= $_SESSION['id'] ?> </span><br>
+                        <img src="public/images/<?= $avt ?>" alt="" style="width: 50px; height: 50px; border-radius: 50px;">
+                            <span>Tên tài khoản:</span>
+                            <span class="info" id="id_tai_khoan"> <?= $name ?> </span><br>
                             <span>Ngày bình luận:</span>
                             <span class="info" id="ngay_binh_luan"> <?= $ngay_binh_luan ?> </span><br>
                             <span>Nội dung bình luận:</span>
@@ -356,7 +357,7 @@
                         endforeach;
                         ?>
 
-                    <div class="load-more" style="display: none;">Hiển thị thêm</div>
+                    
                 </div>
             </div>
 
