@@ -124,6 +124,16 @@ if (isset($_SESSION['taikhoan'])) {
 
                                                     </div>
                                                 </div>
+                                                <?php 
+                                                // Validate đăng nhập mới mua được hàng
+                                                    if (isset($_SESSION['taikhoan'])){
+                                                        echo "<script>var isLogIn = true;</script>";
+                                                    }else {
+                                                        echo "<script>var isLogIn = false;</script>";
+                                                    }
+                                                ?>
+                                                <p class="alert alert-danger" style="display: none" id="messageLogin"></p>
+
                                                 <!-- <input href="index.php?redirect=bill"> -->
                                                 <input name="dathang" type="submit" class="btn btn-style-3" value="Đặt hàng"></input>
                                             </div>
@@ -143,6 +153,15 @@ if (isset($_SESSION['taikhoan'])) {
     </div>
 </form>
 <script>
+    // Validate đăng nhập mới thanh toán được
+    document.getElementById('paymentForm').addEventListener('submit', function(event) {
+        if (!isLogIn) {
+            // Ngăn chặn việc gửi form nếu người dùng chưa đăng nhập
+            event.preventDefault();
+            document.getElementById('messageLogin').style.display = 'block';
+            document.getElementById('messageLogin').textContent = 'Bạn cần đăng nhập để thực hiện đặt hàng!';
+        }
+    });
 
     // input:radio Không cùng name vẫn chọn được
     const checkboxes = document.querySelectorAll('input[type="radio"]');

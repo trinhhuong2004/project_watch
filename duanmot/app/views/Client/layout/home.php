@@ -73,13 +73,13 @@
                                             <div class="product-carousel-group">
                                                 <div class="mirora-product">
                                                     <div class="product-img">
-                                                        <img src="public/images/<?= $hinh_anh ?>" alt="Product" class="primary-image" />
-                                                        <img src="public/images/<?= $hinh_anh ?>" alt="Product" class="secondary-image" />
+                                                        <img src="public/images/<?= $hinh_anh ?>" href="index.php?redirect=chitietsanpham&id=<?= $id ?>" alt="Product" class="primary-image" />
+                                                        <img src="public/images/<?= $hinh_anh ?>" href="index.php?redirect=chitietsanpham&id=<?= $id ?>" alt="Product" class="secondary-image" />
                                                         <div class="product-img-overlay">
                                                             <span class="product-label discount">
                                                                 -20%
                                                             </span>
-                                                            <a href="" data-bs-toggle="modal" data-bs-target="#productModal" class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Xem chi tiết</a>
+                                                            <a href="index.php?redirect=chitietsanpham&id=<?= $id ?>" data-bs-target="#productModal" class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Xem chi tiết</a>
                                                         </div>
                                                     </div>
                                                     <div class="product-content text-center">
@@ -149,7 +149,7 @@
                                                             <span class="product-label discount">
                                                                 -20%
                                                             </span>
-                                                            <a href="" data-bs-toggle="modal" data-bs-target="#productModal" class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Xem chi tiết</a>
+                                                            <a href="index.php?redirect=chitietsanpham&id=<?= $id ?>" data-bs-target="#productModal" class="btn btn-transparent btn-fullwidth btn-medium btn-style-1">Xem chi tiết</a>
                                                         </div>
                                                     </div>
                                                     <div class="product-content text-center">
@@ -175,17 +175,17 @@
                                                         <p>
                                                             <?= $mo_ta ?>
                                                         </p>
-                                                        <form action="index.php?redirect=giohang " method="post">
+                                                        <form action="index.php?redirect=themgiohang" method="post">
                                                             <div class="product-action">
                                                                 <a class="same-action" href="" title="wishlist">
                                                                     <i class="fa fa-heart-o"></i>
                                                                 </a>
-                                                                <input class="add_cart cart-item action-cart" type="submit" name="addcart" value="Thêm Giỏ">
+                                                                <input class="add_cart cart-item action-cart" type="submit" name="addtocart" value="Thêm giỏ">
+                                                                <input type="hidden" name="masp" value="<?= $id ?>">
                                                                 <input type="hidden" name="hinhanh" value="<?= $hinh_anh ?>">
                                                                 <input type="hidden" name="tensp" value="<?= $name ?>">
                                                                 <input type="hidden" name="giagiam" value="<?= $gia_giam ?>">
                                                                 <input type="hidden" name="gia" value="<?= $gia ?>">
-
                                                                 <input type="number" name="soluong" min="1" max="10" value="1">
 
                                                                 <a class="same-action compare-mrg" data-bs-toggle="modal" data-bs-target="#productModal" href="compare.html">

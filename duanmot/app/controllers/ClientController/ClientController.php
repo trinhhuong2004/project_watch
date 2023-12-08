@@ -65,6 +65,7 @@ if (isset($_GET['redirect'])) {
             }
     
             break;
+            
         // Thêm sản phẩm giỏ hàng
         case 'themgiohang':
             if (isset($_POST['addtocart'])) {
@@ -95,7 +96,8 @@ if (isset($_GET['redirect'])) {
             }
             include "app/views/Client/giohang/giohang.php";
             break;
-            // End giỏ hàng
+            
+            // Xóa giỏ hàng
             case 'del_cart':
                 if (isset($_GET['idcart'])) {
                     array_splice($_SESSION['mycart'], $_GET['idcart'], 1);
@@ -107,7 +109,7 @@ if (isset($_GET['redirect'])) {
             case 'giohang':
                 include "app/views/Client/giohang/giohang.php";
                 break;
-
+            // End giỏ hàng
 
         case 'quenmk':
             include "app/views/Client/taikhoan/quenmk.php";
@@ -160,13 +162,13 @@ if (isset($_GET['redirect'])) {
             if(isset($_GET['id'])){
                 $id = $_GET['id'];
                 $load_one_sp = load_one_spct($id);
+                $sanpham = product_detail($id);
             }
             $load_all_sp = all_ct_sanpham();
             include "app/views/Client/sanpham/chitietsanpham.php";
             break;
 
-            // giỏ hàng
-        
+            // Thanh toán
         case 'thanhtoan':
             include "app/views/Client/thanhtoan/thanhtoan.php";
             break;
@@ -182,14 +184,17 @@ if (isset($_GET['redirect'])) {
                 $phone = $_POST['phone'];
                 $dia_chi = $_POST['dia_chi'];
 
+                // Lấy post dựa theo phương thức thanh toán
                 if (isset($_POST['cod'])) {
                     $pttt = $_POST['cod'];
                 } else if (isset($_POST['redirect'])) {
                     $pttt = $_POST['redirect'];
                 }
 
+                // Thêm dữ liệu vào session
                 $_SESSION['order'] = [$id_user, $ngay_dat, $tong_don, $name, $email, $phone, $dia_chi, $pttt];
 
+                // Chuyển hướng dựa theo phương thức thanh toán là gì
                 if (isset($_POST['cod'])) {
                     echo "<script> window.location.href='index.php?redirect=bill';</script>";
                 } else if (isset($_POST['redirect'])) {
@@ -200,17 +205,19 @@ if (isset($_GET['redirect'])) {
         case 'bill':
             if (isset($_SESSION['order']) && !empty($_SESSION['order'])) {
                 $order = $_SESSION['order'];
-                // Tạo đơn hàng
+                // Tạo id đơn hàng và thêm đơn hàng vào donhang trong database
                 $new_id_order = tao_id_order($order[0], $order[1], $order[2], $order[3], $order[4], $order[5], $order[6], $order[7]);
                 $_SESSION['id_order'] = $new_id_order;
                 foreach ($_SESSION['mycart'] as $cart) {
-                    // Thêm vào đơn hàng chi tiết // $add_sp = [$idpro, $hinh_anh, $ten_sp, $gia_giam, $gia, $soluong, $tong];
+                    // Thêm vào đơn hàng chi tiết vào database // $add_sp = [$idpro, $hinh_anh, $ten_sp, $gia_giam, $gia, $soluong, $tong];
                     them_order_detail($new_id_order, $cart[0], $cart[2], $cart[1], $cart[5], $cart[3]);
+                    // Xóa giỏ hàng sau khi đặt hàng thành công
                     unset($_SESSION['mycart']);
                 }
             }
             include "app/views/Client/thanhtoan/bill.php";
             break;
+            // End thanh toán
 
         case 'shop':
             include "app/views/Client/trangphu/shop.php";
