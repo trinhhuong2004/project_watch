@@ -156,6 +156,7 @@ if (isset($_GET['redirect'])) {
             if(isset($_GET['id'])){
                 $id = $_GET['id'];
                 $load_one_sp = load_one_spct($id);
+                $sanpham = product_detail($id);
             }
             $load_all_sp = all_ct_sanpham();
             include "app/views/Client/sanpham/chitietsanpham.php";

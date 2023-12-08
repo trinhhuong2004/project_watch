@@ -40,4 +40,9 @@
       $result = pdo_query_one($sql);
       return $result;
    }
+   function product_detail($id) {
+      $sql = "SELECT * FROM san_pham WHERE id = $id";
+      $result = pdo_query($sql);
+      return $result;
+  }
 ?>

@@ -49,7 +49,7 @@
     }
 
     /*  */
-    form {
+    .form-bl {
         max-width: 400px;
         margin: 0 auto;
         padding: 20px;
@@ -88,8 +88,8 @@
     }
 
     input[type="number"] {
-        width: 20px;
-
+        width: 50px;
+        text-align: center;
         border: none;
         border-radius: 5px;
         cursor: pointer;
@@ -234,7 +234,8 @@
                                 </div>
                                 <div class="ratings-wrap">
                                     <div class="ratings">
-                                        <p>Giá sản phẩm: <?= $load_one_sp['gia']  ?></p>
+                                        <p>Giá giảm: <?= $load_one_sp['gia_giam']  ?></p>
+                                        <del>Giá sản phẩm: <?= $load_one_sp['gia']  ?></del>
                                     </div>
 
                                 </div>
@@ -251,15 +252,25 @@
                             <div class="product-details-bottom">
                                 <div class="product-details-action-wrapper mb--20">
                                     <div class="product-details-action-top d-flex align-items-center mb--20">
+                                    <?php
+                                        if (is_array($load_one_sp)) {
+                                            extract($load_one_sp);
+                                        }
+                                        ?>
+                                    <form style="margin-right: 100px" action="index.php?redirect=themgiohang" method="post">
                                         <div class="quantity">
                                             <span>SL: </span>
-                                            <input type="number" name="qty" id="pro_qty"
-                                                value="<?= $load_one_sp['so_luong']  ?>" min="1">
+                                            <input type="number" style="height: 50px" name="soluong" min="1" value="1">
                                         </div>
-                                        <a href="index.php?redirect=giohang"> <button type="button"
-                                                class="btn btn-medium btn-style-2 add-to-cart">
-                                                Thêm vào giỏ hàng
-                                            </button></a>
+                                        
+                                            <input type="hidden" name="masp" value="<?= $id ?>">
+                                            <input type="hidden" name="hinhanh" value="<?= $hinh_anh ?>">
+                                            <input type="hidden" name="tensp" value="<?= $name ?>">
+                                            <input type="hidden" name="giagiam" value="<?= $gia_giam ?>">
+                                            <input type="hidden" name="gia" value="<?= $gia ?>">
+                                            
+                                            <button type="submit" name="addtocart" class="btn btn-medium btn-style-2 add-to-cart">Thêm vào giỏ hàng </button>
+                                    </form>
                                     </div>
 
                                     <div class="social-share">
@@ -302,7 +313,7 @@
                     // Kiểm tra xem người dùng đã đăng nhập hay chưa bằng cách kiểm tra có tồn tại id hay không
                     if (isset($_SESSION['id']) && !empty($_SESSION['id'])) {
                     ?>
-                    <form action="index.php?redirect=guibinhluan&id=<?= $_GET['id'] ?>" method="post">
+                    <form class="form-bl" action="index.php?redirect=guibinhluan&id=<?= $_GET['id'] ?>" method="post">
                         <input type="hidden" name="id_san_pham" value="<?= $id ?>"> <!-- Giá trị ID sản phẩm -->
                         <input type="hidden" name="id_tai_khoan" value="<?= $_SESSION['id'] ?>">
                         <!-- Giá trị ID tài khoản -->
