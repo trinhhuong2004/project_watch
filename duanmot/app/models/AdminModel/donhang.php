@@ -21,6 +21,7 @@
         FROM don_hang dh 
         JOIN tai_khoan tk ON dh.id_nguoi_dung = tk.id 
         JOIN chi_tiet_don_hang ct ON dh.id = ct.id_don_dat_hang
+        WHERE dh.id = $id
         GROUP BY tk.name, ct.hinh_anh
         ORDER BY dh.id DESC;";
     

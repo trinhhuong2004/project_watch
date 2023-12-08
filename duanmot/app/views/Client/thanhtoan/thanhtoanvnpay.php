@@ -1,7 +1,7 @@
 <?php
 $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
 // Sau khi thanh toán xong thì trả về index.php?redirect=bill
-$vnp_Returnurl = "http://localhost/project_watch/duanmot/index.php?redirect=bill";
+$vnp_Returnurl = "http://localhost/duanmot/duanmot/index.php?redirect=bill";
 $vnp_TmnCode = "CGXZLS0Z";//Mã website tại VNPAY 
 $vnp_HashSecret = "XNBCJFAKAZQSGTARRLGCHVZWCIOIGSHN"; //Chuỗi bí mật
 

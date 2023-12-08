@@ -304,23 +304,6 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon"></i>
-              <p>
-                Chi tiết đơn hàng
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="index.php?act=chi_tiet_don_hang" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Tất cả đơn</p>
-                </a>
-              </li>
-            </ul>
-          </li>
          
           <li class="nav-item">
             <a href="#" class="nav-link">

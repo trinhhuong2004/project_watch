@@ -133,19 +133,19 @@
                                                 <?php
                                             } else {
                                                 // Nếu có session 'id', kiểm tra vai trò của người dùng
-                                                if (isset($_SESSION['taikhoan'])) {
+                                                if (($_SESSION['taikhoan']['vai_tro']) == 1 ) {
                                                     // Nếu vai trò là 1 (quản trị viên), hiển thị nút ADMIN
                                                 ?>
                                                     <a class="dropdown-item" href="index.php?redirect=dangxuat">ĐĂNG XUẤT</a>
                                                     <a class="dropdown-item" href="index.php?redirect=donhang">Lịch sử đơn hàng</a>
                                                     
-                                                    <a class="dropdown-item" href="../../../../../duanmot/app/views/admin/index.php">ADMIN</a>
+                                                    <a class="dropdown-item" href="../../duanmot/duanmot/app/views/admin/index.php">ADMIN</a>
                                                 <?php
                                                 } else {
                                                     // Ngược lại, nếu vai trò không phải là 1, chỉ hiển thị đăng xuất
                                                 ?>
-                                                       <a class="dropdown-item" href="index.php?redirect=dangky">ĐĂNG KÝ</a>
-                                                        <a class="dropdown-item" href="index.php?redirect=dangnhap">ĐĂNG NHẬP</a>
+                                                      <a class="dropdown-item" href="index.php?redirect=dangxuat">ĐĂNG XUẤT</a>
+                                                    <a class="dropdown-item" href="index.php?redirect=donhang">Lịch sử đơn hàng</a>
                                                     
                                                 <?php
                                                 }

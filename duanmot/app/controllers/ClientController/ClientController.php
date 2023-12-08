@@ -235,7 +235,7 @@ if (isset($_GET['redirect'])) {
         case 'donhangchitiet':
             if(isset($_GET['iddh'])){
                 $iddh = $_GET['iddh'];
-                $load_one_dh = load_one_dh($iddh);
+                $load_one_dh = select_onedh($iddh);
                 //var_dump($load_one_dh); exit;
             }
             include "app/views/Client/giohang/donhangchitiet.php";
