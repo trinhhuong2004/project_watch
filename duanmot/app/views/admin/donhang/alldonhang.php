@@ -28,8 +28,9 @@
              <td><?=$ngay_dat ?></td>
              <td><?=$dia_chi_giao_hang ?></td>
              <td><?=$trang_thai?></td>
-             <td><a href="index.php?act=editdonhang&id=id&table=don_hang&id_edit=<?=$id?>"><button class="btn btn-warning">Sửa</button></a>
-                 <a href="index.php?act=delete&header=alldonhang&id=id&table=don_hang&iddl=<?=$id;?>"><button class="btn btn-danger">Xóa</button></a>
+             <td><a href="index.php?act=editdonhang&id=id&table=don_hang&id_edit=<?=$id?>"><button class="btn btn-warning">Cập nhật</button></a>
+             <a href="index.php?act=chitietdonhang&id_edit=<?=$id?>"><button class="btn btn-warning">Chi tiết</button>
+                
              </td>       
          </tr>
          <?php

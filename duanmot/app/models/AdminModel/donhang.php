@@ -16,9 +16,14 @@
         $sql="UPDATE `don_hang` SET `id_nguoi_dung`='$id_nguoi_dung',`ngay_dat`='$ngay_dat',`dia_chi_giao_hang`='$dia_chi_giao_hang',`trang_thai`='$trang_thai' WHERE id='$id'";
         pdo_execute($sql);
     }
-    function select_onedh(){
-        $id=$_GET['id_edit'];
-        $sql="SELECT * FROM don_hang where id='$id'";
+    function select_onedh($id){
+        $sql="SELECT dh.*, tk.name, ct.hinh_anh 
+        FROM don_hang dh 
+        JOIN tai_khoan tk ON dh.id_nguoi_dung = tk.id 
+        JOIN chi_tiet_don_hang ct ON dh.id = ct.id_don_dat_hang
+        GROUP BY tk.name, ct.hinh_anh
+        ORDER BY dh.id DESC;";
+    
         $result=pdo_query_one($sql);
         return $result;
     }

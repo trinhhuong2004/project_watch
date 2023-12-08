@@ -219,20 +219,20 @@ if (isset($_GET['redirect'])) {
         //     if($_POST['dathang']){
 
         //     }
-            // include "app/views/Client/thanhtoan/bill.php";
-            // break;
-        //  case 'donhang':
-        //     $donhang = donhang();
-        //     include "app/views/Client/giohang/donhang.php";
-        //     break;
-        // case 'donhangchitiet':
-        //     if(isset($_GET['iddh'])){
-        //         $iddh = $_GET['iddh'];
-        //         $load_one_dh = load_one_dh($iddh);
-        //         //var_dump($load_one_dh); exit;
-        //     }
-        //     include "app/views/Client/giohang/donhangchitiet.php";
-        //     break;
+            include "app/views/Client/thanhtoan/bill.php";
+            break;
+         case 'donhang':
+            $donhang = donhang();
+            include "app/views/Client/giohang/donhang.php";
+            break;
+        case 'donhangchitiet':
+            if(isset($_GET['iddh'])){
+                $iddh = $_GET['iddh'];
+                $load_one_dh = load_one_dh($iddh);
+                //var_dump($load_one_dh); exit;
+            }
+            include "app/views/Client/giohang/donhangchitiet.php";
+            break;
         // case 'payment':
         //     include "app/views/Client/giohang/donhangchitiet.php";
         //     break;

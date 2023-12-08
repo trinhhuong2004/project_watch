@@ -60,7 +60,7 @@
                                         <div class="form-row">
                                             <div class="form__group col-12">
                                                 <label for="orderNotes" class="form__label">Ghi Chú:</label>
-                                                <textarea class="form__input form__input--2 form__input--textarea" id="orderNotes" name="orderNotes" placeholder="Ghi Chú..." value="<?=$load_one_dh['ghichu']?>"></textarea>
+                                                <textarea class="form__input form__input--2 form__input--textarea" id="orderNotes" name="orderNotes" placeholder="Ghi Chú..."><?php echo !empty($load_one_dh['ghichu']) ? $load_one_dh['ghichu'] : ''; ?></textarea>
                                             </div>
                                         </div>
                                     </form>

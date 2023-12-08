@@ -150,41 +150,53 @@ if (isset($_GET['act'])) {
             }
             include "donhang/adddonhang.php";
             break;
+            //Load don hang
         case 'alldonhang':
             $don_hang = loadall_donhang();
             include "donhang/alldonhang.php";
             break;
+            // Sửa đon hang
         case 'editdonhang':
-            include "donhang/editdonhang.php";
             if (isset($_POST['capnhat'])) {
+                $id = $_GET['id_edit'];
                 $id_nguoi_dung = $_POST['id_nguoi_dung'];
                 $ngay_dat = $_POST['ngay_dat'];
                 $dia_chi_giao_hang = $_POST['dia_chi_giao_hang'];
                 $trang_thai = $_POST['trang_thai'];
                 uptate_donhang($id, $id_nguoi_dung, $ngay_dat, $dia_chi_giao_hang, $trang_thai);
-                echo '<script>alert(Thêm mới thành công)</script>';
+                echo '<script>alert(Cập nhật thành công)</script>';
                 echo '<script>window.location.href="index.php?act=alldonhang"</script>';
+
             }
+            
+           
+            
+            include "donhang/editdonhang.php";
+
             break;
 
             //CHI TIẾT ĐƠN HÀNG
-        case 'chi_tiet_don_hang':
-            $all_donhang = loadall_donhang();
-            include "chitietdonhang/all_don_hang.php";
-            break;
-        case 'editctdh':
-            include "chitietdonhang/editchitietdonhang.php";
-            if (isset($_POST['capnhat'])) {
-                $id_don_dat_hang = $_POST['id_don_dat_hang'];
-                $id_san_pham = $_POST['id_san_pham'];
-                $so_luong = $_POST['id_don_dat_hang'];
-                $size_san_pham = $_POST['size_san_pham'];
-                $gia_ban = $_POST['gia_ban'];
-                uptade_ctdh($id, $id_don_dat_hang, $id_san_pham, $so_luong, $size_san_pham, $gia_ban);
-                echo '<script>alert("Cập nhật thành công")</script>';
-                echo '<script>window.location.href="index.php?act=allctdh"</script>';
+        case 'chitietdonhang':
+            if(isset($_GET['id_edit'])){
+                $id = $_GET['id_edit'];
+                $all_donhang = select_onedh($id);
             }
+            include "donhang/all_don_hang_ct.php";
             break;
+
+        // case 'editctdh':
+        //     include "chitietdonhang/editchitietdonhang.php";
+        //     if (isset($_POST['capnhat'])) {
+        //         $id_don_dat_hang = $_POST['id_don_dat_hang'];
+        //         $id_san_pham = $_POST['id_san_pham'];
+        //         $so_luong = $_POST['id_don_dat_hang'];
+        //         $size_san_pham = $_POST['size_san_pham'];
+        //         $gia_ban = $_POST['gia_ban'];
+        //         uptade_ctdh($id, $id_don_dat_hang, $id_san_pham, $so_luong, $size_san_pham, $gia_ban);
+        //         echo '<script>alert("Cập nhật thành công")</script>';
+        //         echo '<script>window.location.href="index.php?act=allctdh"</script>';
+        //     }
+        //     break;
 
 
             //CHI TIẾT SẢN PHẨM

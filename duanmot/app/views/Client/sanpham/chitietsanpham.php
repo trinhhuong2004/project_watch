@@ -301,11 +301,11 @@
                 <div class="vietbinhluan">
                     <?php
                     // Kiểm tra xem người dùng đã đăng nhập hay chưa bằng cách kiểm tra có tồn tại id hay không
-                    if (isset($_SESSION['id']) && !empty($_SESSION['id'])) {
+                    if (isset($_SESSION['taikhoan']) && !empty($_SESSION['taikhoan'])) {
                     ?>
                     <form action="index.php?redirect=guibinhluan&id=<?= $_GET['id'] ?>" method="post">
                         <input type="hidden" name="id_san_pham" value="<?= $id ?>"> <!-- Giá trị ID sản phẩm -->
-                        <input type="hidden" name="id_tai_khoan" value="<?= $_SESSION['id'] ?>">
+                        <input type="hidden" name="id_tai_khoan" value="<?= $_SESSION['taikhoan']['id'] ?>">
                         <!-- Giá trị ID tài khoản -->
                         <input type="text" name="ngay_binh_luan" value="<?php $ngay_binh_luan = date('Y-m-d');
                                                                             echo $ngay_binh_luan ?>" hidden>

@@ -1,5 +1,5 @@
 <?php
-    $editdonhang=select_onedh();
+    $editdonhang = select_onedh($_GET['id_edit']);
     extract($editdonhang);
 ?>
 <div class="card card-primary">
