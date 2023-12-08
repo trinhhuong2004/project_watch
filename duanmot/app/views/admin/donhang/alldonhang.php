@@ -20,8 +20,7 @@
     </thead>
     <tbody>
         <?php
-        $donhang=loadall_donhang();
-        foreach($donhang as $row):
+        foreach($don_hang as $row):
         extract($row); ?>
          <tr>
              <th><?=$id ?></th>

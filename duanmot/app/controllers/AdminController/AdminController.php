@@ -151,6 +151,7 @@ if (isset($_GET['act'])) {
             include "donhang/adddonhang.php";
             break;
         case 'alldonhang':
+            $don_hang = loadall_donhang();
             include "donhang/alldonhang.php";
             break;
         case 'editdonhang':
@@ -167,22 +168,9 @@ if (isset($_GET['act'])) {
             break;
 
             //CHI TIẾT ĐƠN HÀNG
-
-        case 'addctdh':
-            include "chitietdonhang/addchitietdonhang.php";
-            if (isset($_POST['addctdh'])) {
-                $id_don_dat_hang = $_POST['id_don_dat_hang'];
-                $id_san_pham = $_POST['id_san_pham'];
-                $so_luong = $_POST['id_don_dat_hang'];
-                $size_san_pham = $_POST['size_san_pham'];
-                $gia_ban = $_POST['gia_ban'];
-                insert_ctdh($id_don_dat_hang, $id_san_pham, $so_luong, $size_san_pham, $gia_ban);
-                echo '<script>alert("Thêm mới thành công")</script>';
-                echo '<script>window.location.href="index.php?act=allctdh"</script>';
-            }
-            break;
-        case 'allctdh':
-            include "chitietdonhang/allchitietdonhang.php";
+        case 'chi_tiet_don_hang':
+            $all_donhang = loadall_donhang();
+            include "chitietdonhang/all_don_hang.php";
             break;
         case 'editctdh':
             include "chitietdonhang/editchitietdonhang.php";
