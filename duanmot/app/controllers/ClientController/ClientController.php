@@ -28,6 +28,7 @@ if (isset($_GET['redirect'])) {
                     if (is_array($tai_khoan)) {
                     if ($tai_khoan['name'] == $name && $tai_khoan['pass'] == $pass) {
                         $_SESSION['taikhoan'] = $tai_khoan;
+                      
                         echo "<script> window.location.href='index.php';</script>";
                     } else {
                         echo '<script>alert("Sai tài khoản mật khẩu")</script>';
@@ -57,10 +58,6 @@ if (isset($_GET['redirect'])) {
                 $ngay_binh_luan = $_POST['ngay_binh_luan'];
                 $danh_gia = $_POST['danh_gia'];
                 binhluansanpham($id_tai_khoan, $id_san_pham, $noi_dung_binh_luan, $ngay_binh_luan, $danh_gia);
-                if(isset($_GET['id'])){
-                    $id = $_GET['id'];
-                    $load_one_sp = load_one_spct($id);
-                }
                 
             }
     
