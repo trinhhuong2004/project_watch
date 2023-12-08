@@ -33,39 +33,27 @@
                                 <div class="checkout-title">
                                     <h2>Thông tin nhận hàng</h2>
                                 </div>
-                                <div class="checkout-form">
-                                    <form action="#" class="form">
-                                        <div class="form-row mb--30">
-                                            <div class="form__group col-md-12 mb-sm--30">
-                                                <label for="billing_fname" class="form__label">Họ Và Tên: <span>*</span></label>
-                                                <input type="text" name="billing_fname" id="billing_fname" class="form__input form__input--2" value="<?=$load_one_dh['name']?>">
-                                            </div>
-                                        </div>
-                                        <div class="form-row mb--30">
-                                            <div class="form__group col-12">
-                                                <label for="billing_streetAddress" class="form__label">Địa Chỉ: <span>*</span></label>
-                                                <input type="text" name="billing_streetAddress" id="billing_streetAddress" class="form__input form__input--2" value="<?=$load_one_dh['dia_chi_giao_hang']?>">
-                                            </div>
-                                        </div>
-                                        <div class="form-row mb--30">
-                                            <div class="form__group col-md-12 mb-sm--30">
-                                                <label for="billing_phone" class="form__label">Số Điện Thoại: <span>*</span></label>
-                                                <input type="text" name="billing_phone" id="billing_phone" class="form__input form__input--2" value="<?=$load_one_dh['phone']?>">
-                                            </div>
-                                            <div class="form__group col-md-12">
-                                                <label for="billing_email" class="form__label">Email: <span></span></label>
-                                                <input type="email" name="billing_email" id="billing_email" class="form__input form__input--2" value="<?=$load_one_dh['email']?>">
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form__group col-12">
-                                                <label for="orderNotes" class="form__label">Ghi Chú:</label>
-                                                <textarea class="form__input form__input--2 form__input--textarea" id="orderNotes" name="orderNotes" placeholder="Ghi Chú..." value="<?=$load_one_dh['ghichu']?>"></textarea>
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <a href="index.php"><input name="dongydathang" type="submit" class="btn btn-style-3" value="Tiếp tục mua hàng"></a>
+                                <div class="checkout-form mb--30">
+                                    <?php
+                                        if (isset($_SESSION['id_order']) && !empty($_SESSION['id_order'])) {
+                                            $get_show_info = get_show_bill_info($_SESSION['id_order']);
+                                            extract($get_show_info);
+                                            $pttt = method_pay($pttt);
+                                    ?>
+                                    <p>Người nhận: <?=$ho_ten?></p>
+                                    <p>Email: <?=$email?></p>
+                                    <p>Địa chỉ: <?=$dia_chi_giao_hang?></p>
+                                    <p>Số điện thoại: <?=$sdt?></p>
+                                    <p>Ngày đặt: <?=$ngay_dat?></p>
+                                    <p>Tổng đơn hàng: <?=$tong_dh?></p>
+                                    <p>Phương thức thanh toán: <?=$pttt?></p>
+                                    <p>Trạng thái đơn hàng: <?=$trang_thai?></p>
+
+                                        <?php
+                                }
+                            ?>
                                 </div>
+                                    <a href="index.php"><input name="dongydathang" type="submit" class="btn btn-style-3" value="Tiếp tục mua hàng"></a>
                             </div>
                
                             <?php  //var_dump($load_one_dh); exit;?>
@@ -77,21 +65,39 @@
                                             <thead>
                                                 <tr>
                                                     <th>Sản Phẩm</th>
+                                                    <th>Số lượng</th>
                                                     <th>Giá Tiền</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td><?=$name?> <strong>x<?=$load_one_dh['so_luong']?></strong></td>
-                                                    <td><?=$load_one_dh['gia']?></td>
-                                                </tr>
+                                            <?php
+                                                if (isset($_SESSION['id_order']) && !empty($_SESSION['id_order'])) {
+                                                    $get_show_detail = get_show_bill_detail($_SESSION['id_order']);
+                                                    $tong = 0;
+                                                    foreach ($get_show_detail as $item) :
+                                                        $thanhtien = $item['gia_ban'] * $item['so_luong'];
+                                                        $tong += $thanhtien;
+                                                    
+                                                    // extract($item);
+                                                ?>
                                             
+                                                <tr>
+                                                    <td><img src="assets/img/products/<?= $item['hinh_anh'] ?>" alt=""></td>
+                                                    <td><?=$item['so_luong']?></td>
+                                                    <td><?=$thanhtien?></td>
+                                                </tr>
+
+                                            <?php 
+                                                endforeach;}
+                                            
+                                            ?>
+                                    </ul>
                                             </tbody>
                                             <tfoot>
                                            
                                                 <tr class="order-total">
                                                     <th>Tổng Đơn Hàng</th>
-                                                    <td><span class="order-total-ammount"><?=$load_one_dh['tong_dh']?></span></td>
+                                                    <td colspan="3"><span class="order-total-ammount"><?=$tong?></span></td>
                                                 </tr>
                                             </tfoot>
                                         </table>

@@ -124,7 +124,7 @@
                                         <div class="dropdown-menu" aria-labelledby="userID">
                                             <?php
                                             // Kiểm tra xem session 'id' có tồn tại và không rỗng hay không
-                                            if (empty($_SESSION['id'])) {
+                                            if (!isset($_SESSION['taikhoan'])) {
                                                 // Nếu không có session 'id', người dùng là khách hàng
                                             ?>
                                                 <a class="dropdown-item" href="index.php?redirect=dangky">ĐĂNG KÝ</a>
@@ -133,7 +133,7 @@
                                                 <?php
                                             } else {
                                                 // Nếu có session 'id', kiểm tra vai trò của người dùng
-                                                if ($_SESSION['vai_tro'] == 1) {
+                                                if (isset($_SESSION['taikhoan'])) {
                                                     // Nếu vai trò là 1 (quản trị viên), hiển thị nút ADMIN
                                                 ?>
                                                     <a class="dropdown-item" href="index.php?redirect=dangxuat">ĐĂNG XUẤT</a>
@@ -188,8 +188,9 @@
                                     </li>
                                     <a href="" class="mini-cart-icon"></a>
                                     <div class="mini-cart mini-cart--1">
-                                        <a class="mini-cart__dropdown-toggle bordered-icon" id="cartDropdown">
+                                        <a href="?redirect=giohang" class="mini-cart__dropdown-toggle bordered-icon" id="cartDropdown">
                                             <i class="icon_cart_alt mini-cart__icon"></i>
+                                            <span style="font-size: 20px" class="header-action-num"><?php (isset($_SESSION['mycart'])) ? $mess = count($_SESSION['mycart']) : $mess = 0; echo $mess;?></span>
                                             <span class="mini-cart__ammount">
                                                 <i class="fa fa-angle-down"></i>
                                             </span>

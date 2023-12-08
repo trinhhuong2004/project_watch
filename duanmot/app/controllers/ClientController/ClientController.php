@@ -1,4 +1,6 @@
 <?php
+// giỏ hàng rỗng
+if (!isset($_SESSION['mycart'])) $_SESSION['mycart'] = [];
 if (isset($_GET['redirect'])) {
     $redirect = $_GET['redirect'];
     switch ($redirect) {
@@ -19,25 +21,26 @@ if (isset($_GET['redirect'])) {
             include "app/views/Client/taikhoan/dangky.php";
             break;
             case 'dangnhap':
-                include "app/views/Client/taikhoan/dangnhap.php";
                 if (isset($_POST['dangnhap'])) {
                     $name = $_POST['name'];
                     $pass = $_POST['pass'];
                     $tai_khoan = dangNhap($name, $pass);
+                    if (is_array($tai_khoan)) {
                     if ($tai_khoan['name'] == $name && $tai_khoan['pass'] == $pass) {
-                        session_start(); // Start the session if not started already
-                        $_SESSION['id'] = $tai_khoan['id'];
-                        $_SESSION['name'] = $tai_khoan['name'];
-                        $_SESSION['vai_tro'] = $tai_khoan['vai_tro'];
                         $_SESSION['taikhoan'] = $tai_khoan;
-                        echo '<script>alert("Đăng nhập thành công")</script>';
-                        echo '<script>window.location.href = "index.php"</script>';
+                        echo "<script> window.location.href='index.php';</script>";
                     } else {
                         echo '<script>alert("Sai tài khoản mật khẩu")</script>';
                     }
                 }
+                }
+                include "app/views/Client/taikhoan/dangnhap.php";
                 break;
-            
+
+            case 'dangxuat':
+                session_unset();
+                echo "<script> window.location.href='index.php?act=dangnhap';</script>";
+                break;
 
         case 'guibinhluan':
             if(isset($_GET['id'])){
@@ -62,10 +65,50 @@ if (isset($_GET['redirect'])) {
             }
     
             break;
-            
-        case "xoa_cart":
-          
+        // Thêm sản phẩm giỏ hàng
+        case 'themgiohang':
+            if (isset($_POST['addtocart'])) {
+                $idpro = $_POST['masp'];
+                $hinh_anh = $_POST['hinhanh'];
+                $ten_sp = $_POST['tensp'];
+                $gia_giam = $_POST['giagiam'];
+                $gia = $_POST['gia'];
+                $soluong = $_POST['soluong'];
+
+                $tong = $gia_giam * $soluong;
+                $check = false;
+                $i = 0;
+                foreach ($_SESSION['mycart'] as $item) {
+                    if ($item[0] == $idpro) {
+                        $_SESSION['mycart'][$i][5] += $soluong;
+                        $check = true;
+                        break;
+                    }
+                    $i++;
+                }
+                if (!$check) {
+                    $add_sp = [$idpro, $hinh_anh, $ten_sp, $gia_giam, $gia, $soluong, $tong];
+                    $_SESSION['mycart'][] = $add_sp;
+                }
+                // load lại trang không bị cộng dồn số lượng
+                echo '<script>window.location.href = window.location.href;</script>';
+            }
+            include "app/views/Client/giohang/giohang.php";
+            break;
+            // End giỏ hàng
+            case 'del_cart':
+                if (isset($_GET['idcart'])) {
+                    array_splice($_SESSION['mycart'], $_GET['idcart'], 1);
+                } else {
+                    $_SESSION['mycart'] = [];
+                }
+                header('location: index.php?redirect=giohang');
                 break;
+            case 'giohang':
+                include "app/views/Client/giohang/giohang.php";
+                break;
+
+
         case 'quenmk':
             include "app/views/Client/taikhoan/quenmk.php";
             break;
@@ -123,53 +166,84 @@ if (isset($_GET['redirect'])) {
             break;
 
             // giỏ hàng
-        case 'giohang':
-            $ttgh  = show_giohang();
-            
-            include "app/views/Client/giohang/giohang.php";
-            break;
+        
         case 'thanhtoan':
-            
-            
-            include "app/views/Client/giohang/thanhtoan.php";
+            include "app/views/Client/thanhtoan/thanhtoan.php";
             break;
+
+        case 'payment':
+            if (isset($_POST['dathang']) && $_POST['dathang']) {
+                $id_user = $_POST['id_user'];
+                $ngay_dat = date('Y-m-d H:i:s');
+                $tong_don = $_POST['tong_don'];
+
+                $name = $_POST['name'];
+                $email = $_POST['email'];
+                $phone = $_POST['phone'];
+                $dia_chi = $_POST['dia_chi'];
+
+                if (isset($_POST['cod'])) {
+                    $pttt = $_POST['cod'];
+                } else if (isset($_POST['redirect'])) {
+                    $pttt = $_POST['redirect'];
+                }
+
+                $_SESSION['order'] = [$id_user, $ngay_dat, $tong_don, $name, $email, $phone, $dia_chi, $pttt];
+
+                if (isset($_POST['cod'])) {
+                    echo "<script> window.location.href='index.php?redirect=bill';</script>";
+                } else if (isset($_POST['redirect'])) {
+                    include "app/views/Client/thanhtoan/thanhtoanvnpay.php";
+                }
+            }
+            break;    
+        case 'bill':
+            if (isset($_SESSION['order']) && !empty($_SESSION['order'])) {
+                $order = $_SESSION['order'];
+                // Tạo đơn hàng
+                $new_id_order = tao_id_order($order[0], $order[1], $order[2], $order[3], $order[4], $order[5], $order[6], $order[7]);
+                $_SESSION['id_order'] = $new_id_order;
+                foreach ($_SESSION['mycart'] as $cart) {
+                    // Thêm vào đơn hàng chi tiết // $add_sp = [$idpro, $hinh_anh, $ten_sp, $gia_giam, $gia, $soluong, $tong];
+                    them_order_detail($new_id_order, $cart[0], $cart[2], $cart[1], $cart[5], $cart[3]);
+                    unset($_SESSION['mycart']);
+                }
+            }
+            include "app/views/Client/thanhtoan/bill.php";
+            break;
+
         case 'shop':
             include "app/views/Client/trangphu/shop.php";
             break;
-        case 'bill':
-            if($_POST['dongydathang']){
-                $billing_fname = $_POST['billing_fname'];
-                $billing_streetAddress = $_POST['billing_streetAddress'];
-                $billing_phone = $_POST['billing_phone'];
-                $billing_email = $_POST['billing_email'];
-                $orderNotes = $_POST['orderNotes'];
+        // case 'bill':
+        //     if($_POST['dathang']){
 
-            }
-            include "app/views/Client/giohang/bill.php";
-            break;
-         case 'donhang':
-            $donhang = donhang();
-            include "app/views/Client/giohang/donhang.php";
-            break;
-        case 'donhangchitiet':
-            if(isset($_GET['iddh'])){
-                $iddh = $_GET['iddh'];
-                $load_one_dh = load_one_dh($iddh);
-                //var_dump($load_one_dh); exit;
-            }
-            include "app/views/Client/giohang/donhangchitiet.php";
-            break;
-        case 'payment':
-            include "app/views/Client/giohang/donhangchitiet.php";
-            break;
-            // thanh toán
+        //     }
+            // include "app/views/Client/thanhtoan/bill.php";
+            // break;
+        //  case 'donhang':
+        //     $donhang = donhang();
+        //     include "app/views/Client/giohang/donhang.php";
+        //     break;
+        // case 'donhangchitiet':
+        //     if(isset($_GET['iddh'])){
+        //         $iddh = $_GET['iddh'];
+        //         $load_one_dh = load_one_dh($iddh);
+        //         //var_dump($load_one_dh); exit;
+        //     }
+        //     include "app/views/Client/giohang/donhangchitiet.php";
+        //     break;
+        // case 'payment':
+        //     include "app/views/Client/giohang/donhangchitiet.php";
+        //     break;
+        //     // thanh toán
 
             
 
-        case 'muahangthanhcong':
+        // case 'muahangthanhcong':
 
-            include "app/views/Client/giohang/muahangthanhcong.php";
-            break;
+        //     include "app/views/Client/giohang/muahangthanhcong.php";
+        //     break;
         default:
             include "index.php";
             break;
